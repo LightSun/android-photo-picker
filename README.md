@@ -2,7 +2,8 @@
 the photo picker library  of android
 
 # New features
-
+- Support a variety of network load image library
+- Support expand the photo file entity to you want.
 
 # Usage
 -  1 , first you need to set the image loader , and the  photo file entity 
