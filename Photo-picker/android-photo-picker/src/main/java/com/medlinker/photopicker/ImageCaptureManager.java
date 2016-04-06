@@ -34,7 +34,7 @@ import java.util.UUID;
         return image;
     }
 
-    public Intent makeTakePictureIntent(String rootDir) throws IOException {
+    public Intent makeTakePhotoIntent(String rootDir) throws IOException {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(mContext.getPackageManager()) != null) {
             File photoFile = createImageFile(rootDir);

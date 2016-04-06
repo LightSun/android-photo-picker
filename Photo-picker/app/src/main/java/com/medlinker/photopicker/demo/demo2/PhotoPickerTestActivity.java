@@ -56,7 +56,7 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
         public void onClickCamera(View itemView) {
             showToast("onClickCamera");
             try {
-                startActivityForResult(mPickerHelper.makeTakePictureIntent(), PhotoPickerHelper.REQUEST_TAKE_PHOTO);
+                startActivityForResult(mPickerHelper.makeTakePhotoIntent(), PhotoPickerHelper.REQUEST_TAKE_PHOTO);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,7 +91,7 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
         }
 
         @Override
-        public boolean shouldIgnoreClickEventOfSelectIcon(List<BasePhotoFileEntity> selectItems) {
+        public boolean shouldIgnoreClickEventOfSelectIcon(int position, BasePhotoFileEntity item,List<BasePhotoFileEntity> selectItems) {
             if(selectItems!=null && selectItems.size() == 9){
                 showToast(R.string.only_permit_9_image);
                 return true;

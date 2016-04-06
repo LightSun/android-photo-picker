@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
+ * an abstract class of PagerAdapter about photo
  * Created by heaven7 on 2016/4/5.
  */
 public abstract class PhotoPagerAdapter<T extends IPhotoFileEntity> extends PagerAdapter {
@@ -29,7 +30,7 @@ public abstract class PhotoPagerAdapter<T extends IPhotoFileEntity> extends Page
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+         container.removeView((View) object);
     }
 
     @Override

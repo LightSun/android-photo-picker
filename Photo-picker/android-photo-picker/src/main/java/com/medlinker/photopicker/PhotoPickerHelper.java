@@ -28,11 +28,11 @@ import static android.provider.MediaStore.MediaColumns.MIME_TYPE;
  * a photo scanner
  * Created by heaven7 on 2016/4/5.
  */
-public class PhotoPickerHelper {
+public final class PhotoPickerHelper {
 
     public static final String KEY_PHOTOES            = "photoes";
     public static final String KEY_PHOTOES_SELECTED   = "photoes_selected";
-    public static final String KEY_SELECT_INDEX       = "select_index";
+    public static final String KEY_SELECT_INDEX       = "photo_select_index";
 
     /** the request code for take photo */
     public static final int REQUEST_TAKE_PHOTO       = 101 ;
@@ -45,7 +45,8 @@ public class PhotoPickerHelper {
     /**
      * the root dir to save the capture image.
      */
-    public static final String ROOT_DIR = Environment.getExternalStorageDirectory().getPath() + File.separator + "Medlinker";
+    public static final String ROOT_DIR = Environment.getExternalStorageDirectory().getPath() +
+            File.separator + "Medlinker";
 
     private static final String[] IMAGE_PROJECTION = {
             MediaStore.Images.Media._ID,
@@ -57,20 +58,42 @@ public class PhotoPickerHelper {
 
     private final ImageCaptureManager mCaptureManager;
 
+    /**
+     * the photo async loader callback
+     * @param <T>
+     */
     public interface PhotoLoadResultCallback<T extends IPhotoFileEntity> {
+        /**
+         * called on load finished.
+         * @param directories the all photo dirs , every dir contains some photoes/images.
+         */
         void onResultCallback(List<PhotoDirectory<T>> directories);
     }
 
-    public PhotoPickerHelper(Activity context) {
+    /*public*/ PhotoPickerHelper(Activity context) {
         this.mCaptureManager = new ImageCaptureManager(context);
     }
 
-    public Intent makeTakePictureIntent() throws IOException {
-        return mCaptureManager.makeTakePictureIntent(ROOT_DIR);
+    /**
+     *  make an activity intent of take photo.
+     * @return the intent to to launch take photo activity.
+     * @throws IOException if create temp image file failed.
+     */
+    public Intent makeTakePhotoIntent() throws IOException {
+        return mCaptureManager.makeTakePhotoIntent(ROOT_DIR);
     }
+
+    /**
+     *  get the absolute path of take photo.
+     * @return the absolute path of take photo
+     */
     public String getCurrentPhotoPath(){
         return mCaptureManager.getCurrentPhotoPath();
     }
+
+    /**
+     * scan the photo file to the local media database which is saved by take photo.
+     */
     public void scanFileToDatabase() {
         mCaptureManager.scanFileToDatabase();
     }
@@ -79,20 +102,25 @@ public class PhotoPickerHelper {
      * @param args the param
      * @param resultCallback the callback
      */
-    public void scanPhotoes(Bundle args, PhotoLoadResultCallback resultCallback) {
+    public <T extends IPhotoFileEntity> void scanPhotoes(Bundle args, PhotoLoadResultCallback<T> resultCallback) {
         Context context =  mCaptureManager.getContext();
         if(context instanceof FragmentActivity){
-            ((FragmentActivity) context).getSupportLoaderManager().initLoader(0, args, new PhotoDirLoaderCallbacks(context, resultCallback));
+            ((FragmentActivity) context).getSupportLoaderManager().initLoader(0, args,
+                    new PhotoDirLoaderCallbacks<T>(context, resultCallback));
         }else{
-            ((Activity) context).getLoaderManager().initLoader(0, args, new PhotoDirLoaderCallbacks2(context, resultCallback));
+            ((Activity) context).getLoaderManager().initLoader(0, args,
+                    new PhotoDirLoaderCallbacks2<T>(context, resultCallback));
         }
     }
 
-    public static class AbsLoaderCallbacks{
+    /**
+     * an abstract class for loader callback
+     */
+    public static class AbsLoaderCallbacks<T extends IPhotoFileEntity>{
         private final Context context;
-        private final PhotoLoadResultCallback resultCallback;
+        private final PhotoLoadResultCallback<T> resultCallback;
 
-        public AbsLoaderCallbacks(Context context, PhotoLoadResultCallback resultCallback) {
+        public AbsLoaderCallbacks(Context context, PhotoLoadResultCallback<T> resultCallback) {
             this.context = context;
             this.resultCallback = resultCallback;
         }
@@ -100,7 +128,7 @@ public class PhotoPickerHelper {
         public Context getContext() {
             return context;
         }
-        public PhotoLoadResultCallback getResultCallback() {
+        public PhotoLoadResultCallback<T> getResultCallback() {
             return resultCallback;
         }
 
@@ -109,15 +137,15 @@ public class PhotoPickerHelper {
          * @param allPhotoesDir   the directiry of the all photo's
          * @return true if you set up it.otherwise return false.
          */
-        protected boolean setUpAllPhotoedDirectory(PhotoDirectory allPhotoesDir) {
+        protected boolean setUpAllPhotoedDirectory(PhotoDirectory<T> allPhotoesDir) {
             return false;
         }
 
         protected void doOnLoadFinished( Cursor data) {
             if (data == null) return;
-            List<PhotoDirectory> dirs = new ArrayList<>();
+            List<PhotoDirectory<T>> dirs = new ArrayList<>();
             //all photo with directory
-            PhotoDirectory allPhotoesDir = new PhotoDirectory();
+            PhotoDirectory<T> allPhotoesDir = new PhotoDirectory<>();
             if(!setUpAllPhotoedDirectory(allPhotoesDir)){
                 allPhotoesDir.setName(getContext().getString(R.string.all_image));
                 allPhotoesDir.setId("ALL");
@@ -128,7 +156,7 @@ public class PhotoPickerHelper {
             String name;
             String path;
 
-            PhotoDirectory dir;
+            PhotoDirectory<T> dir;
             int index;  //index of dir
             while (data.moveToNext()) {
 
@@ -137,7 +165,7 @@ public class PhotoPickerHelper {
                 name = data.getString(data.getColumnIndexOrThrow(BUCKET_DISPLAY_NAME));
                 path = data.getString(data.getColumnIndexOrThrow(DATA));
 
-                dir = new PhotoDirectory();
+                dir = new PhotoDirectory<>();
                 dir.setId(bucketId);
                 dir.setName(name);
 
@@ -163,9 +191,10 @@ public class PhotoPickerHelper {
 
     }
 
-    private static class PhotoDirLoaderCallbacks2 extends AbsLoaderCallbacks implements android.app.LoaderManager.LoaderCallbacks<Cursor>{
+    private static class PhotoDirLoaderCallbacks2<T extends IPhotoFileEntity> extends AbsLoaderCallbacks<T>
+            implements android.app.LoaderManager.LoaderCallbacks<Cursor>{
 
-        public PhotoDirLoaderCallbacks2(Context context, PhotoLoadResultCallback resultCallback) {
+        public PhotoDirLoaderCallbacks2(Context context, PhotoLoadResultCallback<T> resultCallback) {
             super(context, resultCallback);
         }
 
@@ -184,10 +213,10 @@ public class PhotoPickerHelper {
 
         }
     }
+    private static class PhotoDirLoaderCallbacks<T extends IPhotoFileEntity>  extends AbsLoaderCallbacks<T>
+            implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private static class PhotoDirLoaderCallbacks  extends AbsLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor>{
-
-        public PhotoDirLoaderCallbacks(Context context, PhotoLoadResultCallback resultCallback) {
+        public PhotoDirLoaderCallbacks(Context context, PhotoLoadResultCallback<T> resultCallback) {
             super(context,resultCallback);
         }
         @Override

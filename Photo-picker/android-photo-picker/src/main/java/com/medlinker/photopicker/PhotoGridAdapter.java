@@ -136,14 +136,15 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
               applySelectState(iv, item.isSelected());
 
               //bind image and event
-              helper.setImageUrl(R.id.photo_picker_iv_image, item.getPath(), PhotoPickerFactory.getsImageLoader())
+              helper.setImageUrl(R.id.photo_picker_iv_image, item.getPath(), PhotoPickerFactory.getImageLoader())
                      .setOnClickListener(R.id.photo_picker_iv_select_icon, new View.OnClickListener() {
                          @Override
                          public void onClick(View v) {
                              if (mCallback == null) {
                                  getSelectHelper().toogleSelected(position);
                              } else {
-                                 if (!mCallback.shouldIgnoreClickEventOfSelectIcon(getSelectHelper().getSelectedItems())) {
+                                 if (!mCallback.shouldIgnoreClickEventOfSelectIcon(
+                                        position , item, getSelectHelper().getSelectedItems())) {
                                      getSelectHelper().toogleSelected(position);
                                      mCallback.onClickSelectIcon(helper.getRootView(),position,
                                              item,getSelectHelper().getSelectedItems());
@@ -216,9 +217,11 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
 
         /**
          * return true if you don't want to switch the select state, that means the click event of select icon is ignored.
+         * @param position the position
+         * @param item the current item.
          * @param selectItems the select items before this click event of  select icon.
          * @return true to ignore the event
          */
-        boolean shouldIgnoreClickEventOfSelectIcon(List<T> selectItems);
+        boolean shouldIgnoreClickEventOfSelectIcon(int position, T item,List<T> selectItems);
     }
 }

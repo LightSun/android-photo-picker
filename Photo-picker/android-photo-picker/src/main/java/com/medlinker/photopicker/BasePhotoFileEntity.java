@@ -4,9 +4,10 @@ package com.medlinker.photopicker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class BasePhotoFileEntity implements IPhotoFileEntity {
+public class BasePhotoFileEntity implements IPhotoFileEntity,Parcelable, Serializable {
 
         private int imageId;
         private String path;
