@@ -13,6 +13,14 @@ public final class PhotoPickerFactory {
     private static IPhotoFileEntityFactory sPhotoFactory;
     private static ViewHelper.IImageLoader sImageLoader;
 
+    private static final IPhotoFileEntityFactory<BasePhotoFileEntity> sDefaultFacory
+             = new IPhotoFileEntityFactory<BasePhotoFileEntity>() {
+        @Override
+        public BasePhotoFileEntity create(int id, String path) {
+            return new BasePhotoFileEntity(id,path);
+        }
+    };
+
     /**
      *
      * @param <T>
@@ -29,15 +37,26 @@ public final class PhotoPickerFactory {
         return new PhotoPickerHelper(activity);
     }
 
+    /***
+     * set the photo entity factory
+     * @param factory the factory
+     */
     public static <T extends IPhotoFileEntity> void setPhotoFileEntityFactory(IPhotoFileEntityFactory<T> factory){
         sPhotoFactory = factory;
     }
+
+    /**
+     * set the image loader to load image .this will use in {@link PhotoGridAdapter}
+     * you can cross this use frecro image library or glide or other image library to load.
+     * this  is useful.
+     * @param imageLoader the image loader
+     */
     public static void setImageLoader(ViewHelper.IImageLoader imageLoader){
         sImageLoader = imageLoader;
     }
 
     public static IPhotoFileEntityFactory getPhotoFileEntityFactory(){
-        return sPhotoFactory;
+        return sPhotoFactory!=null ? sPhotoFactory : sDefaultFacory;
     }
     public static ViewHelper.IImageLoader getImageLoader(){
         return  sImageLoader;

@@ -119,7 +119,9 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
         rv_photos.addItemDecoration(new SpacesItemDecoration((int) getResources().getDimension(R.dimen.photo_width)));
 
         PhotoPickerFactory.setImageLoader(new DraweeImageLoader(0));
-        PhotoPickerFactory.setPhotoFileEntityFactory(new PhotoPickerFactory.IPhotoFileEntityFactory<BasePhotoFileEntity>() {
+        //this also is the default factory
+        PhotoPickerFactory.setPhotoFileEntityFactory(new PhotoPickerFactory.IPhotoFileEntityFactory<
+                BasePhotoFileEntity>() {
             @Override
             public BasePhotoFileEntity create(int id, String path) {
                 return new BasePhotoFileEntity(id, path);

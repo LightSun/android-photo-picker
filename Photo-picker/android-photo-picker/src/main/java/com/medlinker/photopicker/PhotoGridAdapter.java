@@ -19,22 +19,38 @@ import com.heaven7.core.util.ViewHelper;
 import java.util.List;
 
 /**
+ * photo grid adapter . help you fast setAdapter. but you must declare
+ * {@link com.medlinker.photopicker.R.id#photo_picker_iv_image} as the photo ImageView's(or its child class) id
+ * and {@link com.medlinker.photopicker.R.id#photo_picker_iv_select_icon} as the select icon
+ * ImageView's id
+ * <p></p>
  * Created by heaven7 on 2016/4/5.
  * @version 1.0
  */
 public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends QuickRecycleViewAdapter<T>{
 
-    private static final String TAG = "PhotoGridAdapter";
+   // private static final String TAG = "PhotoGridAdapter";
 
     private static final int VIEW_TYPE_CAMERA = -1;
     private static final int DEFAULT_COLOR_GRAY = Color.parseColor("#d8d8d8");
     private boolean mShowCamera = true ;
     private ICallback<T> mCallback;
 
+    /**
+     * default select mode {@link ISelectable#SELECT_MODE_SINGLE}
+     * @param layoutId  item layout id
+     * @param mDatas the data of the grid
+     */
     public PhotoGridAdapter(int layoutId, List<T> mDatas) {
         super(layoutId, mDatas, ISelectable.SELECT_MODE_SINGLE);
     }
 
+    /**
+     * @param layoutId  item layout id
+     * @param mDatas the data of the grid
+     * @param selectMode the select mode ,see {@link ISelectable#SELECT_MODE_MULTI}
+     *                   or  {@link ISelectable#SELECT_MODE_SINGLE}
+     */
     public PhotoGridAdapter(int layoutId, List<T> mDatas, int selectMode) {
         super(layoutId , mDatas, selectMode);
         if(isShowCamera()){
@@ -81,7 +97,8 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
 
     @NonNull
     @Override
-    protected RecyclerView.ViewHolder onCreateViewHolderImpl(HeaderFooterHelper hfHelper, ViewGroup parent, int viewType) {
+    protected RecyclerView.ViewHolder onCreateViewHolderImpl(HeaderFooterHelper hfHelper,
+                                                             ViewGroup parent, int viewType) {
         if(viewType == VIEW_TYPE_CAMERA){
              return new ViewHolder2(LayoutInflater.from(parent.getContext()).inflate(
                      getCameraItemLayoutId(), parent, false));
@@ -196,6 +213,10 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
         }
     }
 
+    /**
+     * the callback of item event
+     * @param <T>
+     */
     public interface ICallback<T>{
 
         /**
