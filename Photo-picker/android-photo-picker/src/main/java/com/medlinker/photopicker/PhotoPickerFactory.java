@@ -22,7 +22,7 @@ public final class PhotoPickerFactory {
     };
 
     /**
-     *
+     * the photo entity factory for create the photo file entity
      * @param <T>
      */
     public interface IPhotoFileEntityFactory<T extends IPhotoFileEntity>{
@@ -55,9 +55,17 @@ public final class PhotoPickerFactory {
         sImageLoader = imageLoader;
     }
 
+    /**
+     * get the photo picker entity factory, if not set the default factory wil be returned.
+     * @return photo picker entity factory
+     */
     public static IPhotoFileEntityFactory getPhotoFileEntityFactory(){
         return sPhotoFactory!=null ? sPhotoFactory : sDefaultFacory;
     }
+
+    /**
+     * get the image loader
+     */
     public static ViewHelper.IImageLoader getImageLoader(){
         return  sImageLoader;
     }
