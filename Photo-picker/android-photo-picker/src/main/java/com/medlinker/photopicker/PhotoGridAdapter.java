@@ -22,7 +22,7 @@ import java.util.List;
  * photo grid adapter . help you fast setAdapter. but you must declare
  * {@link com.medlinker.photopicker.R.id#photo_picker_iv_image} as the photo ImageView's(or its child class) id
  * and {@link com.medlinker.photopicker.R.id#photo_picker_iv_select_icon} as the select icon
- * ImageView's id
+ * ImageView's id in item layout. camera item is optional.
  * <p></p>
  * Created by heaven7 on 2016/4/5.
  * @version 1.0

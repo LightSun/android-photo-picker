@@ -178,6 +178,7 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
     public void onResultCallback(List<PhotoDirectory<BasePhotoFileEntity>> directories) {
         this.mPhotoDirs = directories;
         if(mGridAdapter == null) {
+            //directories.get(0) contains the all photoes. so this as the whole directory.
             mGridAdapter = new PhotoGridAdapter<BasePhotoFileEntity>(R.layout.item_photo,
                     directories.get(0).getPhotos(), ISelectable.SELECT_MODE_MULTI) {
                 @Override
