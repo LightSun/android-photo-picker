@@ -1,0 +1,3 @@
+<resources>
+    <string name="template_done" formatted ="false">done(%d/9)</string>
+</resources>

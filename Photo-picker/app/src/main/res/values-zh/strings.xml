@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">图片选择器</string>
+    <string name="done">完成</string>
+    <string name="only_permit_9_image">最多允许9张图片</string>
+</resources>

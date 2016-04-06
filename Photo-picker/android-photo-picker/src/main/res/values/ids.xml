@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="photo_picker_iv_select_icon" type="id"/>
+    <item name="photo_picker_iv_image" type="id"/>
+   <!-- <item name="photo_picker_iv_camera_icon" type="id"/>-->
+</resources>

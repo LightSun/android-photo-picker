@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Photo-picker</string>
+    <string name="done">done</string>
+    <string name="only_permit_9_image">only permit nine images</string>
+</resources>
