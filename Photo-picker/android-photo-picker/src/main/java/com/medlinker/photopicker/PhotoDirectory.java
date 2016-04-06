@@ -23,14 +23,14 @@ public class PhotoDirectory<T extends IPhotoFileEntity> {
         PhotoDirectory that = (PhotoDirectory) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return !(name != null ? !name.equals(that.name) : that.name != null);
+        return !(path != null ? !path.equals(that.path) : that.path != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (path != null ? path.hashCode() : 0);
         return result;
     }
 
