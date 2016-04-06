@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * an abstract class of PagerAdapter about photo
  * Created by heaven7 on 2016/4/5.
+ * @version 1.0
  */
 public abstract class PhotoPagerAdapter<T extends IPhotoFileEntity> extends PagerAdapter {
 

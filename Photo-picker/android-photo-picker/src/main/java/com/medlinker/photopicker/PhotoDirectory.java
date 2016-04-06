@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  Created by heaven7 on 2016/4/5.
+ * Created by heaven7 on 2016/4/5.
+ * @version 1.0
  */
 public class PhotoDirectory<T extends IPhotoFileEntity> {
 

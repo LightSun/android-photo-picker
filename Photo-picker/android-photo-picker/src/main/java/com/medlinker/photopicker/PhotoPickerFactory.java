@@ -6,6 +6,7 @@ import com.heaven7.core.util.ViewHelper;
 
 /**
  * Created by heaven7 on 2016/4/5.
+ * @version 1.0
  */
 public final class PhotoPickerFactory {
 

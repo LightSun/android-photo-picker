@@ -27,6 +27,7 @@ import static android.provider.MediaStore.MediaColumns.MIME_TYPE;
 /**
  * a photo picker helper, help you take photo, scan photoes.the more to see in demo
  * Created by heaven7 on 2016/4/5.
+ * @version 1.0
  */
 public final class PhotoPickerHelper {
 

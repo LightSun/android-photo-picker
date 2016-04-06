@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- *
+ * @author heaven7
+ * @version 1.0
  */
 /*public*/ class ImageCaptureManager {
 

@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by heaven7 on 2016/4/5.
+ * @version 1.0
  */
 public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends QuickRecycleViewAdapter<T>{
 
