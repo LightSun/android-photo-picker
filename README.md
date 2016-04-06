@@ -183,6 +183,7 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
 
     Copyright 2016   
                   by the develop group of medlinker company.
+                  a member :  heaven7(donshine723@gmail.com)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
