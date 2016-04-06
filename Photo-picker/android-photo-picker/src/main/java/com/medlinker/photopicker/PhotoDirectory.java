@@ -22,8 +22,13 @@ public class PhotoDirectory<T extends IPhotoFileEntity> {
 
         PhotoDirectory that = (PhotoDirectory) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return !(path != null ? !path.equals(that.path) : that.path != null);
+        if(id ==null ||  ! id.equals(that.id)){
+            return false;
+        }
+        if(path ==null ||  ! path.equals(that.path)){
+            return false;
+        }
+        return true;
 
     }
 
