@@ -26,8 +26,8 @@ the photo picker library  of android
 - 3, declare the item layout of photo item. bou must declare
  {@link com.medlinker.photopicker.R.id#photo_picker_iv_image} as the photo ImageView's(or its child class) id
  and {@link com.medlinker.photopicker.R.id#photo_picker_iv_select_icon} as the select icon
- ImageView's id in item layout. camera item is optional.
- and at last do scan the photo files and set adapter in callback here is the demo.
+ ImageView's id in item layout. 
+ and at last do scan the photo files and set adapter in callback ， here is the demo.
 ``` java
  if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED){
