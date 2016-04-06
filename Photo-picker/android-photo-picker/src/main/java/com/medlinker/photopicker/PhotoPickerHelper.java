@@ -25,7 +25,7 @@ import static android.provider.MediaStore.MediaColumns.DATE_ADDED;
 import static android.provider.MediaStore.MediaColumns.MIME_TYPE;
 
 /**
- * a photo scanner
+ * a photo picker helper, help you take photo, scan photoes.the more to see in demo
  * Created by heaven7 on 2016/4/5.
  */
 public final class PhotoPickerHelper {

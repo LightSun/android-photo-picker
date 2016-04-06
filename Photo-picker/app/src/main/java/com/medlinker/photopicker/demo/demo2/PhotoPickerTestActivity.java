@@ -122,11 +122,11 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
         PhotoPickerFactory.setPhotoFileEntityFactory(new PhotoPickerFactory.IPhotoFileEntityFactory<BasePhotoFileEntity>() {
             @Override
             public BasePhotoFileEntity create(int id, String path) {
-                return new BasePhotoFileEntity(id,path);
+                return new BasePhotoFileEntity(id, path);
             }
         });
 
-        mPickerHelper = new PhotoPickerHelper(this);
+        mPickerHelper = PhotoPickerFactory.createPhotoPickerHelper(this);
     }
 
     @Override
