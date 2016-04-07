@@ -162,10 +162,14 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
                                  getSelectHelper().toogleSelected(position);
                              } else {
                                  if (!mCallback.shouldIgnoreClickEventOfSelectIcon(
-                                        position , item, getSelectHelper().getSelectedItems())) {
+                                         position, item, getSelectHelper().getSelectedItems())) {
                                      getSelectHelper().toogleSelected(position);
-                                     mCallback.onClickSelectIcon(helper.getRootView(),position,
-                                             item,getSelectHelper().getSelectedItems());
+                                     mCallback.onClickSelectIcon(helper.getRootView(), position,
+                                             item, getSelectHelper().getSelectedItems());
+                                 } else {
+                                     if (item.isSelected()) {
+                                         getSelectHelper().addUnselected(position);
+                                     }
                                  }
                              }
                          }
