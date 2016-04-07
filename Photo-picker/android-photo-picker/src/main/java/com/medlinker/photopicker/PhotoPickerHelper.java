@@ -98,6 +98,15 @@ public final class PhotoPickerHelper {
     public void scanFileToDatabase() {
         mCaptureManager.scanFileToDatabase();
     }
+
+    /**
+     * scan the photoes, this is async.
+     * @param callback the async load callback
+     */
+    public <T extends IPhotoFileEntity> void scanPhotoes(PhotoLoadResultCallback<T> callback){
+        scanPhotoes(null, callback);
+    }
+
     /**
      * scan the photoes, this is async.
      * @param args the param
