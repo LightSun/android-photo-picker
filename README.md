@@ -177,6 +177,11 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
     };
 
 ```
+- optial. set to show camera as the first item or not (default is shown). the api is in adapter. eg:
+``` java
+  PhotoGridAdapter.setShowCamera(false/true);
+```
+
 - the more to see in demo.
 
 
