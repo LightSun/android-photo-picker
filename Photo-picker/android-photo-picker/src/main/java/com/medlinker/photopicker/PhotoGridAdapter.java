@@ -32,7 +32,6 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
    // private static final String TAG = "PhotoGridAdapter";
 
     private static final int VIEW_TYPE_CAMERA = -1;
-    private static final int DEFAULT_COLOR_GRAY = Color.parseColor("#d8d8d8");
     private boolean mShowCamera = true ;
     private ICallback<T> mCallback;
 
@@ -137,14 +136,14 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
                       .scheme("res")
                       .path(String.valueOf(R.mipmap.ic_camera_album))
                       .build());
+              helper.getRootView().setBackgroundColor(Color.LTGRAY);
               helper.setVisibility(R.id.photo_picker_iv_select_icon,false)
-                      .setBackgroundColor(R.id.photo_picker_iv_image, DEFAULT_COLOR_GRAY)
                       .setRootOnClickListener(new View.OnClickListener() {
                           @Override
                           public void onClick(View v) {
-                                if(mCallback!=null){
-                                    mCallback.onClickCamera(v);
-                                }
+                              if (mCallback != null) {
+                                  mCallback.onClickCamera(v);
+                              }
                           }
                       });
           }else{

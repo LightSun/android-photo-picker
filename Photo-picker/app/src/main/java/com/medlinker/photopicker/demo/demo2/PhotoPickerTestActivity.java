@@ -196,6 +196,11 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
                    // ImageView view = helper.getView(com.medlinker.photopicker.R.id.photo_picker_iv_select_icon);
                     return false;
                 }
+
+                @Override
+                protected int getCameraItemLayoutId() {
+                    return R.layout.item_photo_camera;
+                }
             };
             mGridAdapter.setCallback(mCallback);
             rv_photos.setAdapter(mGridAdapter);
