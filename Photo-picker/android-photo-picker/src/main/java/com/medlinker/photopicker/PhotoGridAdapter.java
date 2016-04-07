@@ -243,6 +243,7 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
 
         /**
          * return true if you don't want to switch the select state, that means the click event of select icon is ignored.
+         * but if the target postion's item was selected. the state is switch to unselected.
          * @param position the position
          * @param item the current item.
          * @param selectItems the select items before this click event of  select icon.
