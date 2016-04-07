@@ -81,14 +81,14 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
                 PackageManager.PERMISSION_GRANTED){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
   }else{
-        mPickerHelper.scanPhotoes(null, this);
+        mPickerHelper.scanPhotoes(this);
   }
   
    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            mPickerHelper.scanPhotoes(null, this);
+            mPickerHelper.scanPhotoes(this);
         }else{
             showToast("permission denied ！");
         }
