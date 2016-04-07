@@ -99,26 +99,18 @@ public final class PhotoPickerHelper {
         mCaptureManager.scanFileToDatabase();
     }
 
-    /**
-     * scan the photoes, this is async.
-     * @param callback the async load callback
-     */
-    public <T extends IPhotoFileEntity> void scanPhotoes(PhotoLoadResultCallback<T> callback){
-        scanPhotoes(null, callback);
-    }
 
     /**
      * scan the photoes, this is async.
-     * @param args the param
      * @param resultCallback the callback
      */
-    public <T extends IPhotoFileEntity> void scanPhotoes(Bundle args, PhotoLoadResultCallback<T> resultCallback) {
+    public <T extends IPhotoFileEntity> void scanPhotoes(PhotoLoadResultCallback<T> resultCallback) {
         Context context =  mCaptureManager.getContext();
         if(context instanceof FragmentActivity){
-            ((FragmentActivity) context).getSupportLoaderManager().initLoader(0, args,
+            ((FragmentActivity) context).getSupportLoaderManager().initLoader(0, null,
                     new PhotoDirLoaderCallbacks<T>(context, resultCallback));
         }else{
-            ((Activity) context).getLoaderManager().initLoader(0, args,
+            ((Activity) context).getLoaderManager().initLoader(0, null,
                     new PhotoDirLoaderCallbacks2<T>(context, resultCallback));
         }
     }
