@@ -54,7 +54,8 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
     public PhotoGridAdapter(int layoutId, List<T> mDatas, int selectMode) {
         super(layoutId , mDatas, selectMode);
         if(isShowCamera()){
-            getAdapterManager().addItem(mDatas.get(0));//add a place holder for show camera
+            T t = (T) PhotoPickerFactory.getPhotoFileEntityFactory().create( -1  ,"camera");
+            getAdapterManager().addItem(t);//add a place holder for show camera
         }
     }
 

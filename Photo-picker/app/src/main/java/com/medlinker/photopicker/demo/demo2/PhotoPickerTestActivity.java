@@ -177,10 +177,15 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
     @Override
     public void onResultCallback(List<PhotoDirectory<BasePhotoFileEntity>> directories) {
         this.mPhotoDirs = directories;
+        ////directories.get(0) contains the all photoes. so this as the whole directory.
+        final List<BasePhotoFileEntity> photos = directories.get(0).getPhotos();
         if(mGridAdapter == null) {
-            //directories.get(0) contains the all photoes. so this as the whole directory.
+            if(photos.size()==0){
+                showToast("no photoes");
+               // return;
+            }
             mGridAdapter = new PhotoGridAdapter<BasePhotoFileEntity>(R.layout.item_photo,
-                    directories.get(0).getPhotos(), ISelectable.SELECT_MODE_MULTI) {
+                    photos, ISelectable.SELECT_MODE_MULTI) {
                 @Override
                 protected void applySelectState(ImageView selectIcon, boolean selected) {
                     selectIcon.setImageResource( selected ? R.mipmap.pic_check_select : R.mipmap.pic_check_normal);
@@ -195,7 +200,7 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
             mGridAdapter.setCallback(mCallback);
             rv_photos.setAdapter(mGridAdapter);
         }else{
-            mGridAdapter.getAdapterManager().replaceAllItems(directories.get(0).getPhotos());
+            mGridAdapter.getAdapterManager().replaceAllItems(photos);
         }
     }
 
