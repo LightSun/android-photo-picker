@@ -12,7 +12,7 @@
 gradle config:
 ``` java
   dependencies {
-       compile 'com.medlinker.photopicker:android-photo-picker:1.0'
+       compile 'com.medlinker.photopicker:android-photo-picker:1.0.1'
   }
 ```
    
