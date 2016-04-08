@@ -1,6 +1,6 @@
 # android-photo-picker
-the photo picker library  of android
-<img src="/photo_picker_2.gif" alt="Demo Screen Capture" width="300px" />
+- the photo picker library  of android
+- <img src="/photo_picker_2.gif" alt="Demo Screen Capture" width="300px" />
 
 # New features
 - Support a variety of network load image library
