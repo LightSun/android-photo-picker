@@ -158,12 +158,10 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
                      .setOnClickListener(R.id.photo_picker_iv_select_icon, new View.OnClickListener() {
                          @Override
                          public void onClick(View v) {
-                             if (mCallback == null) {
+                             if (mCallback == null || item.isSelected()) {
                                  getSelectHelper().toogleSelected(position);
                              } else {
-                                 if (item.isSelected()) {
-                                     getSelectHelper().addUnselected(position);
-                                 }else if (!mCallback.shouldIgnoreClickEventOfSelectIcon(
+                                 if (!mCallback.shouldIgnoreClickEventOfSelectIcon(
                                          position, item, getSelectHelper().getSelectedItems())) {
                                      getSelectHelper().toogleSelected(position);
                                      mCallback.onClickSelectIcon(helper.getRootView(), position,
