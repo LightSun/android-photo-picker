@@ -6,6 +6,13 @@ the photo picker library  of android
 - Support expand the photo file entity to you want.
 
 # Usage
+
+gradle config:
+``` java
+  dependencies {
+       compile 'com.medlinker.photopicker:android-photo-picker:1.0'
+  }
+```
    
 -  1 , first you need to set the image loader , and the  photo file entity 
    factory is optional. see below.
