@@ -79,7 +79,7 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
  mPickerHelper = PhotoPickerFactory.createPhotoPickerHelper(this);
  ```
  
-- 3, declare the item layout of photo item. bou must declare
+- 3, declare the item layout of photo item. but must declare
  {@link com.medlinker.photopicker.R.id#photo_picker_iv_image} as the photo ImageView's(or its child class) id
  and {@link com.medlinker.photopicker.R.id#photo_picker_iv_select_icon} as the select icon
  ImageView's id in item layout. 
