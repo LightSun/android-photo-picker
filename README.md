@@ -4,8 +4,16 @@ the photo picker library  of android
 # New features
 - Support a variety of network load image library
 - Support expand the photo file entity to you want.
+- lib contains no ui 
 
 # Usage
+
+gradle config:
+``` java
+  dependencies {
+       compile 'com.medlinker.photopicker:android-photo-picker:1.0'
+  }
+```
    
 -  1 , first you need to set the image loader , and the  photo file entity 
    factory is optional. see below.
@@ -71,7 +79,7 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
  mPickerHelper = PhotoPickerFactory.createPhotoPickerHelper(this);
  ```
  
-- 3, declare the item layout of photo item. bou must declare
+- 3, declare the item layout of photo item. but must declare
  {@link com.medlinker.photopicker.R.id#photo_picker_iv_image} as the photo ImageView's(or its child class) id
  and {@link com.medlinker.photopicker.R.id#photo_picker_iv_select_icon} as the select icon
  ImageView's id in item layout. 
@@ -81,14 +89,14 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
                 PackageManager.PERMISSION_GRANTED){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
   }else{
-        mPickerHelper.scanPhotoes(null, this);
+        mPickerHelper.scanPhotoes(this);
   }
   
    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            mPickerHelper.scanPhotoes(null, this);
+            mPickerHelper.scanPhotoes(this);
         }else{
             showToast("permission denied ！");
         }
@@ -177,6 +185,11 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
     };
 
 ```
+- 5, optional. set to show camera as the first item or not (default is shown). the api is in adapter. eg:
+``` java
+  PhotoGridAdapter.setShowCamera(false/true);
+```
+
 - the more to see in demo.
 
 

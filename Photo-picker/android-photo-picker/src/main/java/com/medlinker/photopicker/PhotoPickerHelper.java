@@ -67,6 +67,7 @@ public final class PhotoPickerHelper {
         /**
          * called on load finished.
          * @param directories the all photo dirs , every dir contains some photoes/images.
+         *                    and the index = 0 of list is the whole dir contains all photoes.
          */
         void onResultCallback(List<PhotoDirectory<T>> directories);
     }
