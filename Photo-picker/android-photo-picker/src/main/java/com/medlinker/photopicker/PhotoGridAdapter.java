@@ -230,7 +230,7 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
         void onClickItemView(View itemView, int position ,T item);
 
         /**
-         * called when clicked the select icon. return true if you don't want to switch the select state.
+         * called when clicked the select icon.
          * @param position the position
          * @param item the current item.
          * @param selectItems  the select items after switch the select state of select icon.
