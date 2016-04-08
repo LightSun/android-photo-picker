@@ -161,15 +161,13 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
                              if (mCallback == null) {
                                  getSelectHelper().toogleSelected(position);
                              } else {
-                                 if (!mCallback.shouldIgnoreClickEventOfSelectIcon(
+                                 if (item.isSelected()) {
+                                     getSelectHelper().addUnselected(position);
+                                 }else if (!mCallback.shouldIgnoreClickEventOfSelectIcon(
                                          position, item, getSelectHelper().getSelectedItems())) {
                                      getSelectHelper().toogleSelected(position);
                                      mCallback.onClickSelectIcon(helper.getRootView(), position,
                                              item, getSelectHelper().getSelectedItems());
-                                 } else {
-                                     if (item.isSelected()) {
-                                         getSelectHelper().addUnselected(position);
-                                     }
                                  }
                              }
                          }
@@ -243,7 +241,8 @@ public abstract class PhotoGridAdapter<T extends IPhotoFileEntity> extends Quick
 
         /**
          * return true if you don't want to switch the select state, that means the click event of select icon is ignored.
-         * but if the target postion's item was selected. the state is switch to unselected.
+         * only be called when user click the unselect item.
+         * but if the target postion's item was selected. the state is auto switch to unselected.
          * @param position the position
          * @param item the current item.
          * @param selectItems the select items before this click event of  select icon.

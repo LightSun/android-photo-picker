@@ -14,12 +14,9 @@ import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.io.File;
 
@@ -153,61 +150,6 @@ public class PhotoDraweeView extends SimpleDraweeView implements IAttacher {
 
     @Override public void update(int imageInfoWidth, int imageInfoHeight) {
         mAttacher.update(imageInfoWidth, imageInfoHeight);
-    }
-
-    public void loadLocalImage(String file,int width, int height) {
-        ImageRequest request = ImageRequestBuilder
-                .newBuilderWithSource(Uri.fromFile(new File(file)))
-                .setLocalThumbnailPreviewsEnabled(true)
-                .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
-                .setProgressiveRenderingEnabled(false)
-                .setResizeOptions(new ResizeOptions(width, height))
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request)
-                .setOldController(this.getController())
-                .build();
-        this.setController(controller);
-    }
-
-    public void loadImage(Uri uri, int placeHolder, final BaseControllerListener<ImageInfo> l){
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setControllerListener(new BaseControllerListener<ImageInfo>() {
-                    @Override
-                    public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                      /*  if (imageInfo == null) {
-                            return;
-                        }
-                        PhotoDraweeView.this.update(imageInfo.getWidth(), imageInfo.getHeight());*/
-                        if (l != null) {
-                            l.onFinalImageSet(id, imageInfo, animatable);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String id, Throwable throwable) {
-                        if (l != null) {
-                            l.onFailure(id, throwable);
-                        }
-                    }
-
-                    @Override //渐进式
-                    public void onIntermediateImageSet(String id, ImageInfo imageInfo) {
-                        if (l != null) {
-                            l.onIntermediateImageSet(id, imageInfo);
-                        }
-                    }
-                })
-                .setUri(uri)
-                .build();
-        getHierarchy().setPlaceholderImage(placeHolder);
-        setController(controller);
-    }
-
-    public void loadImage(String url){
-        Uri uri = url.startsWith("http://") || url.startsWith("https://") ? Uri.parse(url) : Uri.fromFile(new File(url));
-        DraweeController controller = Fresco.newDraweeControllerBuilder().setUri(uri).build();
-        setController(controller);
     }
 
     public void loadImage(String url,String lowurl, int placeHolderResId, int errorResId,ScalingUtils.ScaleType scaleType){
