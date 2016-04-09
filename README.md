@@ -3,6 +3,7 @@
 - <img src="/photo_picker_2.gif" alt="Demo Screen Capture" width="300px" />
 
 # New features
+- support a camera item. 
 - Support a variety of network load image library
 - Support expand the photo file entity to you want.
 - lib contains no ui 
