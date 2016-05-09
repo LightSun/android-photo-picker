@@ -23,6 +23,7 @@ import java.io.File;
  * Created by heaven7 on 2016/4/8.
  */
 public class CommonDraweeView extends SimpleDraweeView{
+
     public CommonDraweeView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
     }

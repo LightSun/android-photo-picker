@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.heaven7.adapter.ISelectable;
+import com.heaven7.core.util.Logger;
 import com.heaven7.core.util.ViewHelper;
 import com.medlinker.photopicker.BasePhotoFileEntity;
 import com.medlinker.photopicker.PhotoDirectory;
@@ -107,6 +108,19 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("image", mPickerHelper.getCurrentPhotoPath());
+        super.onSaveInstanceState(outState);
+        showToast("onSaveInstanceState" + mPickerHelper.getCurrentPhotoPath());
+    }
+    @Override //有时候直接走oncreate.有时候走 onRestoreInstanceState
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mPickerHelper.setPhotoPath(savedInstanceState.getString("image",null));
+        Logger.i("-- onRestoreInstanceState --"," path = " + mPickerHelper.getCurrentPhotoPath());
+    }
+
+    @Override
     protected void initView() {
         setCommonBackListener(iv_Back);
 
@@ -127,12 +141,14 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
                 return new BasePhotoFileEntity(id, path);
             }
         });
-
         mPickerHelper = PhotoPickerFactory.createPhotoPickerHelper(this);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        if(savedInstanceState != null) {
+            mPickerHelper.setPhotoPath(savedInstanceState.getString("image", null));
+        }
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
@@ -152,6 +168,11 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
                 break;
             case PhotoPickerHelper.REQUEST_TAKE_PHOTO:
                  mPickerHelper.scanFileToDatabase();
+                // setting -> 开发者选项-》用户离开后即销毁每个活动。会造成当前的activity销毁。然后还没扫描完成就走 onActivityResult
+                 if(mPhotoDirs == null){
+                     mPickerHelper.scanPhotoes(this);
+                     return;
+                 }
                  String path = mPickerHelper.getCurrentPhotoPath();
                  BasePhotoFileEntity  entity = (BasePhotoFileEntity) PhotoPickerFactory.getPhotoFileEntityFactory()
                          .create(path.hashCode(), path);
@@ -162,7 +183,7 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
                 //notify adapter
                 mGridAdapter.clearAllSelected();
                 mGridAdapter.getAdapterManager().getItems().add(0,entity);
-                finishSelect();
+               // finishSelect();
                 break;
         }
     }
@@ -173,6 +194,7 @@ public class PhotoPickerTestActivity extends BaseActivity implements PhotoPicker
         setResult(RESULT_OK, sIntent);
         finish();
     }
+
 
     @Override
     public void onResultCallback(List<PhotoDirectory<BasePhotoFileEntity>> directories) {

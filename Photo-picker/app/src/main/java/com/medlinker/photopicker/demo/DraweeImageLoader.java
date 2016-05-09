@@ -49,6 +49,7 @@ public class DraweeImageLoader implements ViewHelper.IImageLoader {
 
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setControllerListener(mListener)
+                    .setOldController(view.getController())
                    // .setUri(uri)
                     .setImageRequest(request)
                     .build();

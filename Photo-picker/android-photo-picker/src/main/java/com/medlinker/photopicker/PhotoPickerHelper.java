@@ -59,6 +59,7 @@ public final class PhotoPickerHelper {
 
     private final ImageCaptureManager mCaptureManager;
 
+
     /**
      * the photo async loader callback
      * @param <T>
@@ -91,6 +92,9 @@ public final class PhotoPickerHelper {
      */
     public String getCurrentPhotoPath(){
         return mCaptureManager.getCurrentPhotoPath();
+    }
+    public void setPhotoPath(String image) {
+        mCaptureManager.mCurrentPhotoPath = image;
     }
 
     /**

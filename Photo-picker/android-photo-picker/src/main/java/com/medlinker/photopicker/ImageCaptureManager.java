@@ -16,7 +16,7 @@ import java.util.UUID;
 /*public*/ class ImageCaptureManager {
 
     private final Context mContext;
-    private String mCurrentPhotoPath;
+    String mCurrentPhotoPath;
 
     public ImageCaptureManager(Context mContext) {
         this.mContext = mContext;
